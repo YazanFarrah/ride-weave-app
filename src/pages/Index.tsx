@@ -1,4 +1,4 @@
-import { Car, User } from "lucide-react";
+import { Car, User, Layout } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -36,6 +36,25 @@ const Index = () => {
           >
             <Car className="w-5 h-5 mr-2" />
             Continue as Driver
+          </Button>
+
+          <div className="relative pt-4">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/30" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-primary px-3 text-white/70">Or</span>
+            </div>
+          </div>
+
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-full h-14 text-lg font-semibold bg-white/10 text-white border-2 border-white/30 hover:bg-white/20 shadow-xl backdrop-blur-sm"
+            onClick={() => navigate("/gallery")}
+          >
+            <Layout className="w-5 h-5 mr-2" />
+            Browse All Screens
           </Button>
         </div>
 
