@@ -52,7 +52,7 @@ const DriverDocuments = () => {
   ];
 
   return (
-    <div className="mobile-container bg-background">
+    <div className="mobile-container bg-background overflow-y-auto">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center gap-3">
