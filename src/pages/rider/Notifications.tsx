@@ -50,7 +50,7 @@ const RiderNotifications = () => {
   ];
 
   return (
-    <div className="mobile-container bg-background pb-20">
+    <div className="mobile-container bg-background pb-20 overflow-y-auto">
       {/* Header */}
       <div className="sticky top-0 bg-background border-b border-border z-10">
         <div className="p-4 flex items-center justify-between">
