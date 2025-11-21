@@ -12,7 +12,7 @@ const BottomNavigation = ({ type }: BottomNavigationProps) => {
   const riderItems = [
     { icon: Home, label: "Home", path: "/rider/home" },
     { icon: Activity, label: "Activity", path: "/rider/activity" },
-    { icon: Wallet, label: "Wallet", path: "/rider/wallet" },
+    { icon: Wallet, label: "Payments", path: "/rider/wallet" },
     { icon: Bell, label: "Alerts", path: "/rider/notifications" },
     { icon: HelpCircle, label: "Support", path: "/rider/support" },
   ];

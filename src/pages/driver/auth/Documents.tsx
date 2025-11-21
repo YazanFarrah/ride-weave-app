@@ -10,25 +10,45 @@ const DriverDocuments = () => {
     license: false,
     registration: false,
     insurance: false,
+    carFront: false,
+    carBack: false,
+    carLeft: false,
+    carRight: false,
   });
 
   const handleUpload = (type: keyof typeof documents) => {
     setDocuments({ ...documents, [type]: true });
-    toast.success("Document uploaded successfully!");
+    toast.success("Photo uploaded successfully!");
   };
 
   const handleContinue = () => {
-    if (!documents.license || !documents.registration || !documents.insurance) {
-      toast.error("Please upload all required documents");
+    const allDocsUploaded = 
+      documents.license && 
+      documents.registration && 
+      documents.insurance &&
+      documents.carFront &&
+      documents.carBack &&
+      documents.carLeft &&
+      documents.carRight;
+      
+    if (!allDocsUploaded) {
+      toast.error("Please upload all required documents and car photos");
       return;
     }
     navigate("/driver/auth/vehicle");
   };
 
   const documentTypes = [
-    { key: "license", label: "Driver's License", required: true },
-    { key: "registration", label: "Vehicle Registration", required: true },
-    { key: "insurance", label: "Insurance Certificate", required: true },
+    { key: "license", label: "Driver's License", required: true, section: "documents" },
+    { key: "registration", label: "Vehicle Registration", required: true, section: "documents" },
+    { key: "insurance", label: "Insurance Certificate", required: true, section: "documents" },
+  ];
+
+  const carPhotoTypes = [
+    { key: "carFront", label: "Car Front View", required: true },
+    { key: "carBack", label: "Car Back View", required: true },
+    { key: "carLeft", label: "Car Left Side", required: true },
+    { key: "carRight", label: "Car Right Side", required: true },
   ];
 
   return (
@@ -51,56 +71,104 @@ const DriverDocuments = () => {
       <div className="px-6 py-8 space-y-6">
         <div>
           <p className="text-muted-foreground">
-            Please upload the following documents to verify your account
+            Please upload the following documents and car photos to verify your account
           </p>
         </div>
 
-        {/* Document Upload Cards */}
-        <div className="space-y-4">
-          {documentTypes.map((doc) => {
-            const isUploaded = documents[doc.key as keyof typeof documents];
-            return (
-              <div
-                key={doc.key}
-                className={`border-2 rounded-xl p-4 transition-smooth ${
-                  isUploaded
-                    ? "border-success bg-success/5"
-                    : "border-border bg-card"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold">{doc.label}</h3>
-                    {doc.required && (
-                      <p className="text-xs text-muted-foreground">Required</p>
+        {/* Document Upload Section */}
+        <div>
+          <h3 className="text-sm font-semibold text-muted-foreground mb-3">REQUIRED DOCUMENTS</h3>
+          <div className="space-y-3">
+            {documentTypes.map((doc) => {
+              const isUploaded = documents[doc.key as keyof typeof documents];
+              return (
+                <div
+                  key={doc.key}
+                  className={`border-2 rounded-xl p-4 transition-smooth ${
+                    isUploaded
+                      ? "border-success bg-success/5"
+                      : "border-border bg-card"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="font-semibold">{doc.label}</h3>
+                      {doc.required && (
+                        <p className="text-xs text-muted-foreground">Required</p>
+                      )}
+                    </div>
+                    {isUploaded && (
+                      <CheckCircle2 className="w-6 h-6 text-success" />
                     )}
                   </div>
-                  {isUploaded && (
-                    <CheckCircle2 className="w-6 h-6 text-success" />
+
+                  {isUploaded ? (
+                    <Button
+                      variant="outline"
+                      className="w-full border-success text-success hover:bg-success/10"
+                      onClick={() => handleUpload(doc.key as keyof typeof documents)}
+                    >
+                      Replace Document
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleUpload(doc.key as keyof typeof documents)}
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload {doc.label}
+                    </Button>
                   )}
                 </div>
+              );
+            })}
+          </div>
+        </div>
 
-                {isUploaded ? (
+        {/* Car Photos Section */}
+        <div>
+          <h3 className="text-sm font-semibold text-muted-foreground mb-3">CAR PHOTOS</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {carPhotoTypes.map((photo) => {
+              const isUploaded = documents[photo.key as keyof typeof documents];
+              return (
+                <div
+                  key={photo.key}
+                  className={`border-2 rounded-xl p-3 transition-smooth ${
+                    isUploaded
+                      ? "border-success bg-success/5"
+                      : "border-border bg-card"
+                  }`}
+                >
+                  <div className="flex flex-col items-center gap-2 mb-2">
+                    {isUploaded ? (
+                      <CheckCircle2 className="w-8 h-8 text-success" />
+                    ) : (
+                      <Upload className="w-8 h-8 text-muted-foreground" />
+                    )}
+                    <div className="text-center">
+                      <p className="font-semibold text-sm">{photo.label}</p>
+                      <p className="text-xs text-muted-foreground">Required</p>
+                    </div>
+                  </div>
+
                   <Button
-                    variant="outline"
-                    className="w-full border-success text-success hover:bg-success/10"
-                    onClick={() => handleUpload(doc.key as keyof typeof documents)}
+                    variant={isUploaded ? "outline" : "default"}
+                    size="sm"
+                    className={`w-full ${
+                      isUploaded 
+                        ? "border-success text-success hover:bg-success/10" 
+                        : ""
+                    }`}
+                    onClick={() => handleUpload(photo.key as keyof typeof documents)}
                   >
-                    Replace Document
+                    {isUploaded ? "Replace" : "Upload"}
                   </Button>
-                ) : (
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => handleUpload(doc.key as keyof typeof documents)}
-                  >
-                    <Upload className="w-4 h-4 mr-2" />
-                    Upload {doc.label}
-                  </Button>
-                )}
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div className="bg-muted rounded-xl p-4">
@@ -117,7 +185,6 @@ const DriverDocuments = () => {
           size="lg"
           className="w-full h-14 text-lg font-semibold"
           onClick={handleContinue}
-          disabled={!documents.license || !documents.registration || !documents.insurance}
         >
           Continue
         </Button>

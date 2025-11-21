@@ -9,20 +9,32 @@ interface MapViewProps {
 
 const MapView = ({ pickup, destination, showRoute, className = "" }: MapViewProps) => {
   return (
-    <div className={`map-container bg-muted relative ${className}`}>
-      {/* Placeholder map background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-muted via-secondary to-muted" />
+    <div className={`map-container bg-muted relative overflow-hidden ${className}`}>
+      {/* Realistic map background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#E5E3DF] via-[#F2F0ED] to-[#E8E6E1]" />
       
-      {/* Grid pattern to simulate map */}
-      <div className="absolute inset-0 opacity-20">
+      {/* Street grid pattern */}
+      <div className="absolute inset-0 opacity-30">
         <div className="w-full h-full" style={{
           backgroundImage: `
-            linear-gradient(hsl(var(--border)) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)
+            linear-gradient(#D1CFC8 1.5px, transparent 1.5px),
+            linear-gradient(90deg, #D1CFC8 1.5px, transparent 1.5px),
+            linear-gradient(#E0DED7 1px, transparent 1px),
+            linear-gradient(90deg, #E0DED7 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px'
+          backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+          backgroundPosition: '-1px -1px, -1px -1px, -1px -1px, -1px -1px'
         }} />
       </div>
+
+      {/* Parks/green spaces */}
+      <div className="absolute top-[20%] left-[15%] w-24 h-24 rounded-full bg-[#C8E6C9]/40 blur-xl" />
+      <div className="absolute bottom-[25%] right-[20%] w-32 h-32 rounded-full bg-[#C8E6C9]/30 blur-xl" />
+      
+      {/* Building blocks */}
+      <div className="absolute top-[30%] right-[30%] w-16 h-12 bg-[#B0B0B0]/20 rounded-sm" />
+      <div className="absolute bottom-[40%] left-[25%] w-20 h-16 bg-[#B0B0B0]/15 rounded-sm" />
+      <div className="absolute top-[50%] left-[40%] w-12 h-12 bg-[#B0B0B0]/20 rounded-sm" />
 
       {/* Pickup marker */}
       {pickup && (
