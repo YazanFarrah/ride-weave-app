@@ -25,38 +25,12 @@ const RiderWallet = () => {
           >
             <ArrowLeft className="w-6 h-6" />
           </Button>
-          <h1 className="text-xl font-bold">Wallet</h1>
-        </div>
-      </div>
-
-      {/* Balance Card */}
-      <div className="p-4">
-        <div className="bg-gradient-to-br from-primary via-primary-light to-primary-dark rounded-2xl p-6 text-white shadow-xl">
-          <p className="text-white/80 mb-2">Available Balance</p>
-          <h2 className="text-4xl font-bold mb-6">$127.50</h2>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <Button
-              size="lg"
-              className="bg-white/20 hover:bg-white/30 text-white border-white/30"
-            >
-              <Plus className="w-5 h-5 mr-2" />
-              Add Funds
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-transparent hover:bg-white/10 text-white border-white/50"
-            >
-              <ArrowUpRight className="w-5 h-5 mr-2" />
-              Withdraw
-            </Button>
-          </div>
+          <h1 className="text-xl font-bold">Payments</h1>
         </div>
       </div>
 
       {/* Payment Methods */}
-      <div className="px-4 mb-6">
+      <div className="px-4 pt-4 mb-6">
         <h3 className="text-sm font-semibold text-muted-foreground mb-3">PAYMENT METHODS</h3>
         <div className="space-y-2">
           <button className="w-full flex items-center gap-3 p-4 bg-card border border-border rounded-xl hover:border-primary transition-smooth">
